@@ -1,4 +1,6 @@
 {
+    "name": "tontine/gestion-tontine",
+    "description": "Application de gestion de tontine avec Symfony et Doctrine ORM",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
