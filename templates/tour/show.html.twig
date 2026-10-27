@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tour{% endblock %}
+
+{% block body %}
+    <h1>Tour</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tour.id }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ tour.numero }}</td>
+            </tr>
+            <tr>
+                <th>DateTour</th>
+                <td>{{ tour.dateTour ? tour.dateTour|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>MontantCagnotte</th>
+                <td>{{ tour.montantCagnotte }}</td>
+            </tr>
+            <tr>
+                <th>EstCloture</th>
+                <td>{{ tour.estCloture ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tour_index') }}">back to list</a>
+
+    <a href="{{ path('app_tour_edit', {'id': tour.id}) }}">edit</a>
+
+    {{ include('tour/_delete_form.html.twig') }}
+{% endblock %}
