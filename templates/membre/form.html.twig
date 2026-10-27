@@ -1,0 +1,36 @@
+{% extends 'base_membres.html.twig' %}
+
+{% block title %}{{ titre }} | Tontine{% endblock %}
+
+{% block body %}
+<div class="page-heading">
+    <div>
+        <div class="eyebrow"><a href="{{ path('app_membre_index') }}">MEMBRES</a> / FORMULAIRE</div>
+        <h1>{{ titre }}</h1>
+        <p class="muted">{{ description }}</p>
+    </div>
+    <a class="button secondary" href="{{ path('app_membre_index') }}">← Retour à la liste</a>
+</div>
+
+<div class="form-panel">
+    {{ form_start(form) }}
+        <div class="form-intro"><div class="form-icon">＋</div><div><h2>Informations du membre</h2><p class="muted">Tous les champs sont obligatoires.</p></div></div>
+
+        {% for message in app.flashes('error') %}
+            <div class="alert error">{{ message }}</div>
+        {% endfor %}
+
+        <div class="form-grid">
+            {{ form_row(form.prenom) }}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.telephone) }}
+        </div>
+
+        <div class="form-actions">
+            <a class="button secondary" href="{{ path('app_membre_index') }}">Annuler</a>
+            <button class="button primary" type="submit">{{ membre.id ? 'Enregistrer les modifications' : 'Créer le membre' }}</button>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
