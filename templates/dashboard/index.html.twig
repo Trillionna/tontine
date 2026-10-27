@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tableau de bord | Tontine</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f5f6fa;
+            --surface: #ffffff;
+            --text: #202438;
+            --muted: #777e91;
+            --primary: #7546e8;
+            --border: #e9eaf1;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+        }
+        .layout { display: flex; min-height: 100vh; }
+        aside {
+            width: 245px;
+            flex-shrink: 0;
+            background: #202039;
+            color: white;
+            padding: 30px 18px;
+        }
+        .brand { font-size: 23px; font-weight: 800; margin: 0 12px 40px; }
+        .brand span { color: #bca5ff; }
+        .nav-label {
+            margin: 25px 12px 12px;
+            color: #a6a5bd;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+        .nav-item {
+            display: block;
+            padding: 13px 12px;
+            margin: 5px 0;
+            border-radius: 9px;
+            color: #e1e0ef;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .nav-item.active { background: #7546e8; color: white; }
+        a.nav-item:hover { background: #343454; color: white; }
+        main { flex: 1; min-width: 0; padding: 36px; }
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 35px;
+        }
+        h1 { font-size: 29px; margin: 0 0 8px; letter-spacing: -0.8px; }
+        .subtitle { margin: 0; color: var(--muted); font-size: 14px; }
+        .status {
+            background: #e7f8ef;
+            color: #168451;
+            border-radius: 20px;
+            padding: 9px 13px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .section-title { font-size: 17px; margin: 0 0 18px; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 23px;
+            box-shadow: 0 4px 15px #20203905;
+        }
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .stat-name { color: var(--muted); font-size: 13px; }
+        .symbol {
+            display: grid;
+            place-items: center;
+            width: 39px;
+            height: 39px;
+            border-radius: 11px;
+            background: #f0eaff;
+            color: var(--primary);
+            font-weight: 800;
+        }
+        .number { font-size: 32px; font-weight: 800; margin-top: 20px; }
+        .description { color: var(--muted); font-size: 12px; margin-top: 6px; }
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+        .module { display: flex; align-items: center; gap: 14px; }
+        .module-icon {
+            display: grid;
+            place-items: center;
+            width: 43px;
+            height: 43px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: #f0eaff;
+            color: var(--primary);
+            font-weight: 800;
+        }
+        .module h3 { font-size: 14px; margin: 0 0 5px; }
+        .module p { font-size: 12px; color: var(--muted); margin: 0; }
+        .footer { margin-top: 35px; color: var(--muted); font-size: 12px; }
+        @media (max-width: 950px) {
+            .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            main { padding: 25px; }
+        }
+        @media (max-width: 650px) {
+            .layout { display: block; }
+            aside { width: 100%; padding: 20px; }
+            .brand { margin-bottom: 15px; }
+            .nav-label { margin-top: 12px; }
+            main { padding: 22px 16px; }
+            .stats, .modules { grid-template-columns: 1fr; }
+            h1 { font-size: 24px; }
+            .topbar { align-items: flex-start; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside>
+        <div class="brand">Tontine<span>.</span></div>
+        <div class="nav-label">Espace principal</div>
+        <a class="nav-item active" href="{{ path('app_dashboard') }}">Tableau de bord</a>
+        <div class="nav-label">Gestion</div>
+        <a class="nav-item" href="{{ path('app_membre_index') }}">Membres</a>
+        <a class="nav-item" href="{{ path('app_campagne_index') }}">Campagnes</a>
+        <a class="nav-item" href="{{ path('app_participation_index') }}">Participations</a>
+        <a class="nav-item" href="{{ path('app_cotisation_index') }}">Cotisations</a>
+        <a class="nav-item" href="{{ path('app_paiement_index') }}">Paiements</a>
+        <a class="nav-item" href="{{ path('app_tour_index') }}">Tours et bénéficiaires</a>
+    </aside>
+
+    <main>
+        <header class="topbar">
+            <div>
+                <h1>Tableau de bord</h1>
+                <p class="subtitle">Vue d'ensemble de votre activité de tontine.</p>
+            </div>
+            <div class="status">● Base de données connectée</div>
+        </header>
+
+        <h2 class="section-title">Indicateurs principaux</h2>
+        <section class="stats">
+            {% set cards = [
+                {label: 'Membres', key: 'membres', symbol: 'M', desc: 'Personnes enregistrées'},
+                {label: 'Campagnes', key: 'campagnes', symbol: 'C', desc: 'Campagnes créées'},
+                {label: 'Participations', key: 'participations', symbol: 'P', desc: 'Inscriptions aux campagnes'},
+                {label: 'Cotisations', key: 'cotisations', symbol: 'C+', desc: 'Enregistrements de cotisation'},
+                {label: 'Paiements', key: 'paiements', symbol: '₣', desc: 'Opérations enregistrées'},
+                {label: 'Tours', key: 'tours', symbol: 'T', desc: 'Tours de bénéficiaires'}
+            ] %}
+            {% for item in cards %}
+                <article class="card">
+                    <div class="stat-top">
+                        <span class="stat-name">{{ item.label }}</span>
+                        <span class="symbol">{{ item.symbol }}</span>
+                    </div>
+                    <div class="number">{{ stats[item.key] }}</div>
+                    <div class="description">{{ item.desc }}</div>
+                </article>
+            {% endfor %}
+        </section>
+
+        <h2 class="section-title">Modules de l'application</h2>
+        <section class="modules">
+            <article class="card module">
+                <div class="module-icon">01</div>
+                <div><h3>Gestion des membres</h3><p>Répertoire et informations des adhérents.</p></div>
+            </article>
+            <article class="card module">
+                <div class="module-icon">02</div>
+                <div><h3>Campagnes de tontine</h3><p>Organisation et suivi des campagnes.</p></div>
+            </article>
+            <article class="card module">
+                <div class="module-icon">03</div>
+                <div><h3>Cotisations et paiements</h3><p>Suivi des opérations financières.</p></div>
+            </article>
+            <article class="card module">
+                <div class="module-icon">04</div>
+                <div><h3>Tours et participations</h3><p>Suivi des inscriptions et bénéficiaires.</p></div>
+            </article>
+        </section>
+        <div class="footer">Tontine · Administration · Tableau de bord</div>
+    </main>
+</div>
+</body>
+</html>
